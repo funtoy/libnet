@@ -1,0 +1,9 @@
+pkg
+.idea
+bin
+*.exe
+*.cmd
+*.as
+.DS_Store
+*.zip
+*.out

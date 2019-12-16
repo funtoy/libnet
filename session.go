@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/funtoy/log"
-	"github.com/funtoy/utils"
+	"github.com/funtoy/util"
 	"github.com/gobwas/ws/wsutil"
 	"io"
 	"net"
@@ -71,7 +71,7 @@ func (s *Session) wsListener() {
 		chExit <- struct{}{}
 
 		if err := recover(); err != nil {
-			log.Errorf("[Recovery] panic ws recovered:%s\n%s", err, utils.Stack(3))
+			log.Errorf("[Recovery] panic ws recovered:%s\n%s", err, util.Stack(3))
 		}
 	}()
 
@@ -122,7 +122,7 @@ func (s *Session) tcpListener() {
 		chExit <- struct{}{}
 
 		if err := recover(); err != nil {
-			log.Errorf("[Recovery] panic tcp recovered:%s\n%s", err, utils.Stack(3))
+			log.Errorf("[Recovery] panic tcp recovered:%s\n%s", err, util.Stack(3))
 		}
 	}()
 
@@ -130,7 +130,7 @@ func (s *Session) tcpListener() {
 		for {
 			select {
 			case msg := <-s.outChan:
-				if _, err := s.conn.Write(utils.PackOne(msg)); err != nil {
+				if _, err := s.conn.Write(util.PackOne(msg)); err != nil {
 					s.eventHandler.handleError(s, fmt.Errorf("[writer]tcp.Write:%v", err.Error()))
 				}
 
